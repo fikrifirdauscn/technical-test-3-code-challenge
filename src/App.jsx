@@ -116,24 +116,29 @@ function App() {
         </button>
       </div>
       
-      <div className="todo-list">
-        {filteredTodos.map((todo) => (
-          <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-            <input 
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-            />
-            {/* Commit 1: Menghilangkan XSS */}
-            <span>{todo.text}</span>
-            <button 
-              className="delete-btn"
-              onClick={() => deleteTodo(todo.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
+     <div className="todo-list">
+        {filteredTodos.length === 0 ? (
+          <p className="empty-state" style={{ textAlign: 'center', color: '#666', padding: '20px' }}>
+            No tasks found.
+          </p>
+        ) : (
+          filteredTodos.map((todo) => (
+            <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+              <input 
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => toggleTodo(todo.id)}
+              />
+              <span>{todo.text}</span>
+              <button 
+                className="delete-btn"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        )}
       </div>
       
       <div className="stats">
