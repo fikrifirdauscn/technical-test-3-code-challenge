@@ -9,11 +9,21 @@ function App() {
   // Issue 3: useEffect tanpa dependency array yang tepat
   useEffect(() => {
     // Load from localStorage
-    const saved = localStorage.getItem('todos')
-    if (saved) {
-      setTodos(JSON.parse(saved))
-    }
-  }, [])
+  //   const saved = localStorage.getItem('todos')
+  //   if (saved) {
+  //     setTodos(JSON.parse(saved))
+  //   }
+  // }, [])
+
+  const saved = localStorage.getItem('todos')
+if (saved) {
+  try {
+    setTodos(JSON.parse(saved))
+  } catch (error) {
+    console.error('Gagal memuat data dari localStorage:', error)
+    localStorage.removeItem('todos') 
+  }
+}
   
   // Issue 4: useEffect yang terlalu sering run
   // useEffect(() => {
