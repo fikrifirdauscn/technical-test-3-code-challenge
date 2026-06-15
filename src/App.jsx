@@ -1,30 +1,36 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 
 function App() {
   // Issue 2: State management bisa lebih baik
-  const [todos, setTodos] = useState([])
+ const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem('todos')
+    if (saved) {
+      try {
+        return JSON.parse(saved)
+      } catch (error) {
+        console.error('Gagal memuat data dari localStorage:', error)
+        return []
+      }
+    }
+    return []
+  })
+  
   const [input, setInput] = useState('')
   const [filter, setFilter] = useState('all')
   
   // Issue 3: useEffect tanpa dependency array yang tepat
-  useEffect(() => {
-    // Load from localStorage
-  //   const saved = localStorage.getItem('todos')
-  //   if (saved) {
-  //     setTodos(JSON.parse(saved))
-  //   }
-  // }, [])
+//   useEffect(() => {
 
-  const saved = localStorage.getItem('todos')
-if (saved) {
-  try {
-    setTodos(JSON.parse(saved))
-  } catch (error) {
-    console.error('Gagal memuat data dari localStorage:', error)
-    localStorage.removeItem('todos') 
-  }
-}
-}, [])
+//   const saved = localStorage.getItem('todos')
+// if (saved) {
+//   try {
+//     setTodos(JSON.parse(saved))
+//   } catch (error) {
+//     console.error('Gagal memuat data dari localStorage:', error)
+//     localStorage.removeItem('todos') 
+//   }
+// }
+// }, [])
   
   // Issue 4: useEffect yang terlalu sering run
   // useEffect(() => {
