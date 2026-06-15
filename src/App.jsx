@@ -95,22 +95,23 @@ function App() {
         <button onClick={addTodo}>Add</button>
       </div>
       
-      <div style={{ marginBottom: '20px', display: 'flex', gap: '10px' }}>
+      {/* Issue 12: Mengganti inline styles dengan className */}
+      <div className="filter-section">
         <button 
           onClick={() => setFilter('all')}
-          style={{ background: filter === 'all' ? '#28a745' : '#007bff' }}
+          className={filter === 'all' ? 'active-filter' : ''}
         >
           All
         </button>
         <button 
           onClick={() => setFilter('active')}
-          style={{ background: filter === 'active' ? '#28a745' : '#007bff' }}
+          className={filter === 'active' ? 'active-filter' : ''}
         >
           Active
         </button>
         <button 
           onClick={() => setFilter('completed')}
-          style={{ background: filter === 'completed' ? '#28a745' : '#007bff' }}
+          className={filter === 'completed' ? 'active-filter' : ''}
         >
           Completed
         </button>
