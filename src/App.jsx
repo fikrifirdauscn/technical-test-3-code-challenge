@@ -24,6 +24,7 @@ if (saved) {
     localStorage.removeItem('todos') 
   }
 }
+}, [])
   
   // Issue 4: useEffect yang terlalu sering run
   // useEffect(() => {
