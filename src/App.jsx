@@ -72,8 +72,8 @@ function App() {
     ))
   }
   
-  // Issue 8: Logic filtering yang bisa dipindah ke useMemo
-  const getFilteredTodos = () => {
+  // Issue 8: Logic filtering dibungkus useMemo
+  const filteredTodos = useMemo(() => {
     if (filter === 'active') {
       return todos.filter(todo => !todo.completed)
     }
@@ -81,14 +81,16 @@ function App() {
       return todos.filter(todo => todo.completed)
     }
     return todos
-  }
+  }, [todos, filter])
   
-  // Issue 9: Calculation yang tidak perlu di setiap render
-  const stats = {
-    total: todos.length,
-    completed: todos.filter(t => t.completed).length,
-    active: todos.filter(t => !t.completed).length
-  }
+  // Issue 9: Calculation dibungkus useMemo
+  const stats = useMemo(() => {
+    return {
+      total: todos.length,
+      completed: todos.filter(t => t.completed).length,
+      active: todos.filter(t => !t.completed).length
+    }
+  }, [todos])
   
   // Issue 10: Inline event handler dengan arrow function (re-create setiap render)
   return (
@@ -135,7 +137,7 @@ function App() {
       
       <div className="todo-list">
         {/* Issue 13: Tidak ada handling untuk empty state */}
-        {getFilteredTodos().map((todo) => (
+        {filteredTodos().map((todo) => (
           // Issue 14: Key menggunakan index bisa lebih baik dengan ID
           <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
             <input 
