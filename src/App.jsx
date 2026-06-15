@@ -90,6 +90,7 @@ function App() {
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
           placeholder="What needs to be done?"
+          aria-label="New todo input"
         />
         <button onClick={addTodo}>Add</button>
       </div>
